@@ -1,0 +1,21 @@
+@import url('@mantine/core/styles.css');
+@import url('https://fonts.googleapis.com/css2?family=Coda:wght@400;800&family=Open+Sans:wght@600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  font-size: 16px;
+}
+
+@media screen and (min-width: 1024px) {
+  html {
+    font-size: 1vw;
+  }
+}
+
+body {
+  color: black;
+  background-color: white;
+}
