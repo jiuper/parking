@@ -22,6 +22,7 @@ import Section from './section.component'
 import { useNavigate } from 'react-router-dom'
 import { ParkingPlaceMobileComponents } from './parking-place-mobile.components.tsx'
 import { PantryPlaceMobileComponent } from './pantry-place-mobile.component.tsx'
+import { TransformComponent, TransformWrapper } from 'react-zoom-pan-pinch'
 
 enum ModalTypes {
   ParkingForm,
@@ -117,8 +118,8 @@ export default function ParkingPlan({count}:ParkingPlan) {
     selectedPlaceInfo?.type === "parking"
       ? floorParkingPlaces.find((place) => place.id === selectedPlaceInfo.id)
       :  selectedPlaceInfo?.type === "pantry"
-      ? floorPantryPlaces.find((place) => place.id === selectedPlaceInfo.id)
-      : undefined
+        ? floorPantryPlaces.find((place) => place.id === selectedPlaceInfo.id)
+        : undefined
 
   const selectedPlaceType: string | undefined =
     selectedPlaceInfo?.type === 'parking' && selectedPlace && 'type' in selectedPlace
@@ -184,7 +185,7 @@ export default function ParkingPlan({count}:ParkingPlan) {
                       className={clsx(
                         'h-[3.55rem] w-[3.55rem] rounded-full flex justify-center items-center text-[2rem]',
                         Number(floor) === selectedFloor &&
-                          'bg-steel border-steel hover:text-steel hover:border-steel'
+                        'bg-steel border-steel hover:text-steel hover:border-steel'
                       )}
                       onClick={() => handelHref(Number(floor))}
                     >
@@ -271,7 +272,7 @@ export default function ParkingPlan({count}:ParkingPlan) {
                   className={clsx(
                     'h-12 w-12 rounded-full flex justify-center items-center text-2xl',
                     Number(floor) === selectedFloor &&
-                      'bg-steel border-steel hover:text-steel hover:border-steel'
+                    'bg-steel border-steel hover:text-steel hover:border-steel'
                   )}
                   onClick={() => handelHref(Number(floor))}
                 >
@@ -283,6 +284,8 @@ export default function ParkingPlan({count}:ParkingPlan) {
           </div>
 
           <div className="overflow-auto relative mt-6" style={{maxWidth: '400px', width: '100%', height: '400px', margin: '0 auto'}}>
+            <TransformWrapper initialScale={1}>
+              <TransformComponent>
             {selectedFloor === 4 ? (
               <img
                 src="/images/plans/fourth-floor-plan-placeholder.jpg"
@@ -320,6 +323,8 @@ export default function ParkingPlan({count}:ParkingPlan) {
                 ))}
               </>
             )}
+              </TransformComponent>
+            </TransformWrapper>
           </div>
           <div className="my-6 flex justify-center items-center gap-x-6">
             <Button className="w-8 text-xl" onClick={handleZoomDecrease}>
