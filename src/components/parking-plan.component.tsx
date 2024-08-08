@@ -284,7 +284,7 @@ export default function ParkingPlan({count}:ParkingPlan) {
           </div>
 
           <div className="overflow-auto relative mt-6" style={{maxWidth: '400px', width: '100%', height: '400px', margin: '0 auto'}}>
-            <TransformWrapper initialScale={1}>
+            <TransformWrapper initialScale={1} >
               <TransformComponent>
             {selectedFloor === 4 ? (
               <img
