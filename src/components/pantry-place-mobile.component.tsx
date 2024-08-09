@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, useState } from 'react'
+import { ComponentPropsWithoutRef, useRef, useState } from 'react'
 import clsx from 'clsx'
 import { NumberFormatter } from '@mantine/core'
 import { Dialog } from 'primereact/dialog'
@@ -9,6 +9,7 @@ import { PantryPlaceImageSizeRecord } from '../constants/pantry-place-image-size
 import { IPantryPlace } from '../types/pantry-place.type.ts'
 import { PlaceStatusesEnum } from '../enums/place-statuses.enum.ts'
 import { Icon } from './icon/icon.component.tsx'
+import { useClickOutside } from 'primereact/hooks'
 
 interface PantryPlaceMobileComponentProps extends Omit<ComponentPropsWithoutRef<'div'>, 'children' | 'onSelect'>  {
   pantryPlace: IPantryPlace
@@ -18,7 +19,11 @@ interface PantryPlaceMobileComponentProps extends Omit<ComponentPropsWithoutRef<
 
 export const PantryPlaceMobileComponent = ({pantryPlace, zoom = 1, onSelect, className, style, ...otherProps}: PantryPlaceMobileComponentProps) => {
   const [visible, setVisible] = useState(false);
+  const overlayRef = useRef(null);
 
+  useClickOutside(overlayRef, () => {
+    setVisible(false);
+  });
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   if (!(pantryPlace.displayedNo in PantryPlacePositionsRecord)) {
@@ -52,11 +57,13 @@ export const PantryPlaceMobileComponent = ({pantryPlace, zoom = 1, onSelect, cla
           )}
         />
       </div>
+      <div ref={overlayRef}>
       <Dialog
         baseZIndex={9999}
         header={<h3 className="mb-2 text-xl">Кладовая №{pantryPlace.displayedNo}</h3>}
         visible={visible}
         position={'bottom'}
+        modal={false}
         draggable={false}
         style={{ maxWidth: '550px', width: '100vw' }}
         onHide={() => {
@@ -92,6 +99,7 @@ export const PantryPlaceMobileComponent = ({pantryPlace, zoom = 1, onSelect, cla
           Забронировать
         </Button>
       </Dialog>
+      </div>
     </>
   )
 }

@@ -291,7 +291,7 @@ export default function ParkingPlan({count}:ParkingPlan) {
                 src="/images/plans/fourth-floor-plan-placeholder.jpg"
                 alt=""
                 className="max-w-none"
-                style={{ transform: `scale(${zoom * 53}rem)` }}
+                style={{ width: `${zoom * 53}rem` }}
               />
             ) : (
               <>

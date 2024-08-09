@@ -62,15 +62,13 @@ export const ParkingPlaceMobileComponents = ({parkingPlace, zoom = 1, onSelect, 
             </div>
           )}
         </div>
-        <div           ref={overlayRef}>
-
-
+        <div ref={overlayRef}>
           <Dialog
-
             baseZIndex={9999}
             header={<h3 className="mb-2 text-xl">Место №{parkingPlace.displayedNo}</h3>}
             visible={visible}
             position={'bottom'}
+            modal={false}
             draggable={false}
             style={{ maxWidth:"550px", width: '100vw' }}
             onHide={() => {
