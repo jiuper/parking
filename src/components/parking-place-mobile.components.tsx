@@ -43,7 +43,7 @@ export const ParkingPlaceMobileComponents = ({onOpen, onClose, isOpen, parkingPl
           ) : (
             <div
               className="flex justify-center items-center"
-              style={{ height: `${zoom * 5.35}rem`, width: `${((zoom * 1.75) * 16) / 424 * 100}%` }}
+              style={{ height: `${zoom * 5.35}rem`, width: `${zoom * 1.75}rem` }}
               onClick={() => onOpen(parkingPlace.id)}
 
             >
