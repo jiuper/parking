@@ -150,7 +150,7 @@ export default function ParkingPlan({count}:ParkingPlan) {
           <div className="flex justify-center items-end gap-x-[7.25rem]">
             {selectedFloor === 4 ? (
               <Image
-                src="/images/plans/fourth-floor-plan-placeholder.jpg"
+                src="/images/plans/fourth-floor-plan-placeholder.webp"
                 alt=""
                 className="w-[53.3rem]"
               />
@@ -288,7 +288,7 @@ export default function ParkingPlan({count}:ParkingPlan) {
               <TransformComponent>
             {selectedFloor === 4 ? (
               <img
-                src="/images/plans/fourth-floor-plan-placeholder.jpg"
+                src="/images/plans/fourth-floor-plan-placeholder.webp"
                 alt=""
                 className="max-w-none"
                 style={{ width: `${zoom * 53}rem` }}
