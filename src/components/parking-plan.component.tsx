@@ -24,6 +24,7 @@ import { ParkingPlaceMobileComponents } from './parking-place-mobile.components.
 import { PantryPlaceMobileComponent } from './pantry-place-mobile.component.tsx'
 import { TransformComponent, TransformWrapper } from 'react-zoom-pan-pinch'
 
+
 enum ModalTypes {
   ParkingForm,
   PantryForm,
@@ -59,12 +60,14 @@ export default function ParkingPlan({count}:ParkingPlan) {
     queryKey: ['pantry-places'],
     queryFn: getPantryPlaces,
   })
+
   const [isOpenParking, setIsOpenParking] = useState(false);
   const [parkingPlaceId, setParkingPlaceId] = useState<number | null>(null);
   const handleParkingClick = (id: number | null) => {
     setIsOpenParking(true);
     setParkingPlaceId(id);
   }
+
   const [isOpenPantry, setIsisOpenPantry] = useState(false);
   const [pantryPlaceId, setPantryPlaceId] = useState<number | null>(null);
   const handlePantryClick = (id: number | null) => {
@@ -77,8 +80,7 @@ export default function ParkingPlan({count}:ParkingPlan) {
     type: 'parking' | 'pantry'
   } | null>(null)
   const [openedModalType, setOpenedModalType] = useState<ModalTypes | null>(null)
-
-  const [zoom, setZoom] = useState(0.5)
+  const [zoom] = useState(0.5)
 
   useEffect(() => {
     if (count === null) {
@@ -142,17 +144,6 @@ export default function ParkingPlan({count}:ParkingPlan) {
     setOpenedModalType(type === 'parking' ? ModalTypes.ParkingForm : ModalTypes.PantryForm)
   }
 
-  const handleZoomIncrease = () => {
-    if (zoom < 1) {
-      setZoom((prevZoom) => prevZoom + 0.1)
-    }
-  }
-
-  const handleZoomDecrease = () => {
-    if (zoom > 0.5) {
-      setZoom((prevZoom) => prevZoom - 0.1)
-    }
-  }
 
   return (
     <>
@@ -293,64 +284,68 @@ export default function ParkingPlan({count}:ParkingPlan) {
               </div>
             ))}
           </div>
-
-          <div className="overflow-auto relative mt-6" style={{maxWidth: '400px', width: '100%', height: '400px', margin: '0 auto'}}>
-            <TransformWrapper initialScale={1} >
-              <TransformComponent>
-            {selectedFloor === 4 ? (
-              <img
-                src="/images/plans/fourth-floor-plan-placeholder.webp"
-                alt=""
-                className="max-w-none"
-                style={{ width: `${zoom * 53}rem` }}
-              />
-            ) : (
+          <TransformWrapper>
+            {({ zoomIn, zoomOut }) => (
               <>
-                <img
-                  src={parkingPlanImage}
-                  alt=""
-                  className="max-w-none"
-                  style={{ width: `${zoom * 53}rem` }}
-                />
-                {selectedFloor !== 3 &&
-                  selectedFloor !== 4 &&
-                  floorParkingPlaces.map((parkingPlace) => (
-                    <ParkingPlaceMobileComponents
-                      key={parkingPlace.id}
-                      parkingPlace={parkingPlace}
-                      zoom={zoom}
-                      className="absolute"
-                      onSelect={() => handlePlaceSelect(parkingPlace.id, 'parking')}
-                      isOpen={parkingPlaceId === parkingPlace.id && isOpenParking}
-                      onOpen={handleParkingClick}
-                      onClose={() => setIsOpenParking(false)}
-                    />
-                  ))}
-                {floorPantryPlaces.map((pantryPlace) => (
-                  <PantryPlaceMobileComponent
-                    key={pantryPlace.id}
-                    pantryPlace={pantryPlace}
-                    zoom={zoom}
-                    className="absolute"
-                    onSelect={() => handlePlaceSelect(pantryPlace.id, 'pantry')}
-                    isOpen={pantryPlaceId === pantryPlace.id && isOpenPantry}
-                    onOpen={handlePantryClick}
-                    onClose={() => setIsisOpenPantry(false)}
-                  />
-                ))}
+                <div className="overflow-auto relative mt-6">
+                  <TransformComponent>
+                    {selectedFloor === 4 ? (
+                      <Image
+                        src="/images/plans/fourth-floor-plan-placeholder.webp"
+                        alt=""
+                        className="max-w-none"
+                        style={{ width: `${zoom * 53}rem` }}
+                      />
+                    ) : (
+                      <>
+                        <Image
+                          src={parkingPlanImage}
+                          alt=""
+                          className="max-w-none"
+                          style={{ width: `${zoom * 53}rem` }}
+                        />
+                        {selectedFloor !== 3 &&
+                          selectedFloor !== 4 &&
+                          floorParkingPlaces.map((parkingPlace) => (
+                            <ParkingPlaceMobileComponents
+                              key={parkingPlace.id}
+                              parkingPlace={parkingPlace}
+                              zoom={zoom}
+                              className="absolute"
+                              onSelect={() => handlePlaceSelect(parkingPlace.id, 'parking')}
+                              isOpen={parkingPlaceId === parkingPlace.id && isOpenParking}
+                              onOpen={handleParkingClick}
+                              onClose={() => setIsOpenParking(false)}
+                            />
+                          ))}
+                        {floorPantryPlaces.map((pantryPlace) => (
+                          <PantryPlaceMobileComponent
+                            key={pantryPlace.id}
+                            pantryPlace={pantryPlace}
+                            zoom={zoom}
+                            className="absolute"
+                            onSelect={() => handlePlaceSelect(pantryPlace.id, 'pantry')}
+                            isOpen={pantryPlaceId === pantryPlace.id && isOpenPantry}
+                            onOpen={handlePantryClick}
+                            onClose={() => setIsisOpenPantry(false)}
+                          />
+                        ))}
+                      </>
+                    )}
+                  </TransformComponent>
+                </div>
+
+                <div className="my-6 flex justify-center items-center gap-x-6">
+                  <Button className="w-8 text-xl" onClick={() => zoomOut()}>
+                    -
+                  </Button>
+                  <Button className="w-8 text-xl" onClick={() => zoomIn()}>
+                    +
+                  </Button>
+                </div>
               </>
             )}
-              </TransformComponent>
-            </TransformWrapper>
-          </div>
-          <div className="my-6 flex justify-center items-center gap-x-6">
-            <Button className="w-8 text-xl" onClick={handleZoomDecrease}>
-              -
-            </Button>
-            <Button className="w-8 text-xl" onClick={handleZoomIncrease}>
-              +
-            </Button>
-          </div>
+          </TransformWrapper>
 
           <div>
             <p className="text-3xl">{selectedFloorInfo.title}</p>

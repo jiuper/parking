@@ -3,11 +3,10 @@ import { IParkingPlace } from '../types/parking-place.type.ts'
 import { ParkingPlaceImagesRecord } from '../constants/parking-place-images-record.component.ts'
 import { ParkingPlaceTypesRecord } from '../constants/parking-place-types-record.constant.ts'
 import { ParkingPlacePositionsRecord } from '../constants/parking-place-positions-record.ts'
-import { ComponentPropsWithoutRef, useRef } from 'react'
+import { ComponentPropsWithoutRef } from 'react'
 import { Dialog } from 'primereact/dialog'
 import { Image, NumberFormatter } from '@mantine/core'
 import Button from '../shared-ui/button.component.tsx'
-import { useClickOutside } from 'primereact/hooks'
 
 
 interface ParkingPlaceMobileComponentsProps
@@ -25,13 +24,11 @@ export const ParkingPlaceMobileComponents = ({onOpen, onClose, isOpen, parkingPl
   const type = ParkingPlaceTypesRecord[parkingPlace.type]
   const position = ParkingPlacePositionsRecord[parkingPlace.displayedNo]
 
-  const overlayRef = useRef(null);
-  useClickOutside(overlayRef,() => onClose());
+
 
   return (
       <>
         <div
-          ref={overlayRef}
           className={clsx(className)}
           style={{
             width: `${zoom * 1.75}rem`,
@@ -40,7 +37,7 @@ export const ParkingPlaceMobileComponents = ({onOpen, onClose, isOpen, parkingPl
             rotate: `${position.rotationDegree}deg`,
             ...style,
           }}
-          onClick={() => onOpen(parkingPlace.id)}
+
           {...otherProps}
         >
           {image ? (
@@ -49,6 +46,8 @@ export const ParkingPlaceMobileComponents = ({onOpen, onClose, isOpen, parkingPl
             <div
               className="flex justify-center items-center"
               style={{ height: `${zoom * 5.35}rem`, width: `${zoom * 1.75}rem` }}
+              onClick={() => onOpen(parkingPlace.id)}
+
             >
               {parkingPlace.previousPrice > 0 && (
                 <Image
@@ -98,7 +97,8 @@ export const ParkingPlaceMobileComponents = ({onOpen, onClose, isOpen, parkingPl
                 />
               </div>
             </div>
-            <Button className="w-full py-2 text-xs" onClick={() => {
+            <Button className="w-full py-2 text-xs" onClick={(e) => {
+              e.stopPropagation()
               onSelect(parkingPlace.id)
               onClose()
             }}>
