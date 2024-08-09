@@ -294,7 +294,6 @@ export default function ParkingPlan({count}:ParkingPlan) {
                         src="/images/plans/fourth-floor-plan-placeholder.webp"
                         alt=""
                         className="max-w-none"
-                        style={{ width: `${zoom * 53}rem` }}
                       />
                     ) : (
                       <>
@@ -302,7 +301,6 @@ export default function ParkingPlan({count}:ParkingPlan) {
                           src={parkingPlanImage}
                           alt=""
                           className="max-w-none"
-                          style={{ width: `${zoom * 53}rem` }}
                         />
                         {selectedFloor !== 3 &&
                           selectedFloor !== 4 &&

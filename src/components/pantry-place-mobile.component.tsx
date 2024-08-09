@@ -41,9 +41,9 @@ export const PantryPlaceMobileComponent = ({onOpen, onClose, isOpen, pantryPlace
         ref={overlayRef}
         className={clsx(className)}
         style={{
-          width: `${zoom * imageSize.width}rem`,
-          top: `${zoom * position.top}rem`,
-          left: `${zoom * position.left}rem`,
+          width: `${((zoom * imageSize.width) * 16) / 424 * 100}%`,
+          top: `${((zoom * position.top) * 16) / 351.82 * 100}%` ,
+          left: `${((zoom * position.left) * 16) / 424 * 100}%`,
           ...style
         }}
         onClick={() => onOpen(pantryPlace.id)}

@@ -24,16 +24,14 @@ export const ParkingPlaceMobileComponents = ({onOpen, onClose, isOpen, parkingPl
   const type = ParkingPlaceTypesRecord[parkingPlace.type]
   const position = ParkingPlacePositionsRecord[parkingPlace.displayedNo]
 
-
-
   return (
       <>
         <div
           className={clsx(className)}
           style={{
-            width: `${zoom * 1.75}rem`,
-            top: `${zoom * position.top}rem`,
-            left: `${zoom * position.left}rem`,
+            width: `${((zoom * 1.75) * 16) / 424 * 100}%`,
+            top: `${((zoom * position.top) * 16) / 351.82 * 100}%` ,
+            left: `${((zoom * position.left) * 16) / 424 * 100}%`,
             rotate: `${position.rotationDegree}deg`,
             ...style,
           }}
@@ -45,7 +43,7 @@ export const ParkingPlaceMobileComponents = ({onOpen, onClose, isOpen, parkingPl
           ) : (
             <div
               className="flex justify-center items-center"
-              style={{ height: `${zoom * 5.35}rem`, width: `${zoom * 1.75}rem` }}
+              style={{ height: `${zoom * 5.35}rem`, width: `${((zoom * 1.75) * 16) / 424 * 100}%` }}
               onClick={() => onOpen(parkingPlace.id)}
 
             >
