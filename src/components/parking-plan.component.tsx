@@ -71,7 +71,7 @@ export default function ParkingPlan({count}:ParkingPlan) {
   const [isOpenPantry, setIsisOpenPantry] = useState(false);
   const [pantryPlaceId, setPantryPlaceId] = useState<number | null>(null);
   const handlePantryClick = (id: number | null) => {
-    setIsOpenParking(true);
+    setIsisOpenPantry(true);
     setPantryPlaceId(id);
   }
   const [selectedFloor, setSelectedFloor] = useState(1)
@@ -267,9 +267,9 @@ export default function ParkingPlan({count}:ParkingPlan) {
 
       {!isDesktop ? (
         <Section id="parking-plan" className="py-14 px-5">
-          <div className="mb-[1.05rem] flex gap-x-5">
+          <div className="mb-[1.05rem] flex justify-center gap-x-5">
             {FloorRecordEntries.map(([floor]) => (
-              <div key={floor} className="flex flex-col items-center gap-y-[0.7rem]">
+              <div key={floor} className="flex  flex-col items-center gap-y-[0.7rem]">
                 <Button
                   className={clsx(
                     'h-12 w-12 rounded-full flex justify-center items-center text-2xl',

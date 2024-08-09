@@ -16,7 +16,7 @@ import { useParams } from 'react-router-dom'
 export default function MainPage() {
   const isDesktop = useMediaQuery('(min-width: 1024px)')
   const { id } = useParams()
-  console.log(id)
+
   return (
     <>
       {isDesktop ? (

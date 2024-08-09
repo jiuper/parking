@@ -3,10 +3,11 @@ import { IParkingPlace } from '../types/parking-place.type.ts'
 import { ParkingPlaceImagesRecord } from '../constants/parking-place-images-record.component.ts'
 import { ParkingPlaceTypesRecord } from '../constants/parking-place-types-record.constant.ts'
 import { ParkingPlacePositionsRecord } from '../constants/parking-place-positions-record.ts'
-import { ComponentPropsWithoutRef } from 'react'
+import { ComponentPropsWithoutRef, useRef } from 'react'
 import { Dialog } from 'primereact/dialog'
 import { Image, NumberFormatter } from '@mantine/core'
 import Button from '../shared-ui/button.component.tsx'
+import { useClickOutside } from 'primereact/hooks'
 
 
 interface ParkingPlaceMobileComponentsProps
@@ -23,15 +24,19 @@ export const ParkingPlaceMobileComponents = ({onOpen, onClose, isOpen, parkingPl
   const image = ParkingPlaceImagesRecord[parkingPlace.status]
   const type = ParkingPlaceTypesRecord[parkingPlace.type]
   const position = ParkingPlacePositionsRecord[parkingPlace.displayedNo]
+  const overlayRef = useRef(null);
 
+  useClickOutside(overlayRef, () => onClose());
   return (
       <>
         <div
+
           className={clsx(className)}
           style={{
             width: `${((zoom * 1.75) * 16) / 424 * 100}%`,
             top: `${((zoom * position.top) * 16) / 351.82 * 100}%` ,
             left: `${((zoom * position.left) * 16) / 424 * 100}%`,
+            height:  `${((zoom * 6.35) * 16) / 424 * 100}%`,
             rotate: `${position.rotationDegree}deg`,
             ...style,
           }}
@@ -42,10 +47,10 @@ export const ParkingPlaceMobileComponents = ({onOpen, onClose, isOpen, parkingPl
             <Image src={image} alt="" />
           ) : (
             <div
-              className="flex justify-center items-center"
-              style={{ height: `${zoom * 5.35}rem`, width: `${zoom * 1.75}rem` }}
+              className="flex justify-center items-center bg-gray-200"
+              style={{ height: `100%`, width: `100%` }}
               onClick={() => onOpen(parkingPlace.id)}
-
+              ref={overlayRef}
             >
               {parkingPlace.previousPrice > 0 && (
                 <Image
