@@ -3,11 +3,10 @@ import { IParkingPlace } from '../types/parking-place.type.ts'
 import { ParkingPlaceImagesRecord } from '../constants/parking-place-images-record.component.ts'
 import { ParkingPlaceTypesRecord } from '../constants/parking-place-types-record.constant.ts'
 import { ParkingPlacePositionsRecord } from '../constants/parking-place-positions-record.ts'
-import { ComponentPropsWithoutRef, useRef } from 'react'
+import { ComponentPropsWithoutRef, useEffect } from 'react'
 import { Dialog } from 'primereact/dialog'
 import { Image, NumberFormatter } from '@mantine/core'
 import Button from '../shared-ui/button.component.tsx'
-import { useClickOutside } from 'primereact/hooks'
 
 
 interface ParkingPlaceMobileComponentsProps
@@ -24,13 +23,19 @@ export const ParkingPlaceMobileComponents = ({onOpen, onClose, isOpen, parkingPl
   const image = ParkingPlaceImagesRecord[parkingPlace.status]
   const type = ParkingPlaceTypesRecord[parkingPlace.type]
   const position = ParkingPlacePositionsRecord[parkingPlace.displayedNo]
-  const overlayRef = useRef(null);
 
-  useClickOutside(overlayRef, () => onClose());
+  useEffect(() => {
+    window.addEventListener('scroll', () => {
+      // eslint-disable-next-line no-unused-expressions
+      if(window.scrollY){
+        onClose()
+      }
+    });
+  }, [onClose]);
+
   return (
       <>
         <div
-
           className={clsx(className)}
           style={{
             width: `${((zoom * 1.75) * 16) / 424 * 100}%`,
@@ -40,7 +45,6 @@ export const ParkingPlaceMobileComponents = ({onOpen, onClose, isOpen, parkingPl
             rotate: `${position.rotationDegree}deg`,
             ...style,
           }}
-
           {...otherProps}
         >
           {image ? (
@@ -50,7 +54,6 @@ export const ParkingPlaceMobileComponents = ({onOpen, onClose, isOpen, parkingPl
               className="flex justify-center items-center bg-gray-200"
               style={{ height: `100%`, width: `100%` }}
               onClick={() => onOpen(parkingPlace.id)}
-              ref={overlayRef}
             >
               {parkingPlace.previousPrice > 0 && (
                 <Image
@@ -100,8 +103,7 @@ export const ParkingPlaceMobileComponents = ({onOpen, onClose, isOpen, parkingPl
                 />
               </div>
             </div>
-            <Button className="w-full py-2 text-xs" onClick={(e) => {
-              e.stopPropagation()
+            <Button className="w-full py-2 text-xs" onClick={() => {
               onSelect(parkingPlace.id)
               onClose()
             }}>

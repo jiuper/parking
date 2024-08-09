@@ -46,7 +46,6 @@ export const PantryPlaceMobileComponent = ({onOpen, onClose, isOpen, pantryPlace
           left: `${((zoom * position.left) * 16) / 424 * 100}%`,
           ...style
         }}
-        onClick={() => onOpen(pantryPlace.id)}
         {...otherProps}
       >
         <Icon
@@ -56,6 +55,7 @@ export const PantryPlaceMobileComponent = ({onOpen, onClose, isOpen, pantryPlace
             pantryPlace.status === PlaceStatusesEnum.Booked && '#F9B004',
             pantryPlace.status === PlaceStatusesEnum.Sold && '#D63810'
           )}
+          onClick={pantryPlace.status === PlaceStatusesEnum.Free ? () =>  onOpen(pantryPlace.id) : () => {}}
         />
       </div>
       <Dialog
