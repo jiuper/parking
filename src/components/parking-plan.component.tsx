@@ -59,7 +59,18 @@ export default function ParkingPlan({count}:ParkingPlan) {
     queryKey: ['pantry-places'],
     queryFn: getPantryPlaces,
   })
-
+  const [isOpenParking, setIsOpenParking] = useState(false);
+  const [parkingPlaceId, setParkingPlaceId] = useState<number | null>(null);
+  const handleParkingClick = (id: number | null) => {
+    setIsOpenParking(true);
+    setParkingPlaceId(id);
+  }
+  const [isOpenPantry, setIsisOpenPantry] = useState(false);
+  const [pantryPlaceId, setPantryPlaceId] = useState<number | null>(null);
+  const handlePantryClick = (id: number | null) => {
+    setIsOpenParking(true);
+    setPantryPlaceId(id);
+  }
   const [selectedFloor, setSelectedFloor] = useState(1)
   const [selectedPlaceInfo, setSelectedPlaceInfo] = useState<{
     id: number
@@ -310,6 +321,9 @@ export default function ParkingPlan({count}:ParkingPlan) {
                       zoom={zoom}
                       className="absolute"
                       onSelect={() => handlePlaceSelect(parkingPlace.id, 'parking')}
+                      isOpen={parkingPlaceId === parkingPlace.id && isOpenParking}
+                      onOpen={handleParkingClick}
+                      onClose={() => setIsOpenParking(false)}
                     />
                   ))}
                 {floorPantryPlaces.map((pantryPlace) => (
@@ -319,6 +333,9 @@ export default function ParkingPlan({count}:ParkingPlan) {
                     zoom={zoom}
                     className="absolute"
                     onSelect={() => handlePlaceSelect(pantryPlace.id, 'pantry')}
+                    isOpen={pantryPlaceId === pantryPlace.id && isOpenPantry}
+                    onOpen={handlePantryClick}
+                    onClose={() => setIsisOpenPantry(false)}
                   />
                 ))}
               </>

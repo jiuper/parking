@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, useRef, useState } from 'react'
+import { ComponentPropsWithoutRef, useRef } from 'react'
 import clsx from 'clsx'
 import { NumberFormatter } from '@mantine/core'
 import { Dialog } from 'primereact/dialog'
@@ -15,15 +15,15 @@ interface PantryPlaceMobileComponentProps extends Omit<ComponentPropsWithoutRef<
   pantryPlace: IPantryPlace
   zoom?: number
   onSelect: (pantryPlaceId: number) => void
+  onClose: () => void
+  onOpen: (id: number) => void
+  isOpen: boolean
 }
 
-export const PantryPlaceMobileComponent = ({pantryPlace, zoom = 1, onSelect, className, style, ...otherProps}: PantryPlaceMobileComponentProps) => {
-  const [visible, setVisible] = useState(false);
+export const PantryPlaceMobileComponent = ({onOpen, onClose, isOpen, pantryPlace, zoom = 1, onSelect, className, style, ...otherProps}: PantryPlaceMobileComponentProps) => {
   const overlayRef = useRef(null);
 
-  useClickOutside(overlayRef, () => {
-    setVisible(false);
-  });
+  useClickOutside(overlayRef, () => onClose());
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   if (!(pantryPlace.displayedNo in PantryPlacePositionsRecord)) {
@@ -38,6 +38,7 @@ export const PantryPlaceMobileComponent = ({pantryPlace, zoom = 1, onSelect, cla
   return (
     <>
       <div
+        ref={overlayRef}
         className={clsx(className)}
         style={{
           width: `${zoom * imageSize.width}rem`,
@@ -45,7 +46,7 @@ export const PantryPlaceMobileComponent = ({pantryPlace, zoom = 1, onSelect, cla
           left: `${zoom * position.left}rem`,
           ...style
         }}
-        onClick={() => setVisible(true)}
+        onClick={() => onOpen(pantryPlace.id)}
         {...otherProps}
       >
         <Icon
@@ -57,19 +58,15 @@ export const PantryPlaceMobileComponent = ({pantryPlace, zoom = 1, onSelect, cla
           )}
         />
       </div>
-      <div ref={overlayRef}>
       <Dialog
         baseZIndex={9999}
         header={<h3 className="mb-2 text-xl">Кладовая №{pantryPlace.displayedNo}</h3>}
-        visible={visible}
+        visible={isOpen}
         position={'bottom'}
         modal={false}
         draggable={false}
         style={{ maxWidth: '550px', width: '100vw' }}
-        onHide={() => {
-          if (!visible) return
-          setVisible(false)
-        }}>
+        onHide={onClose}>
         <div className="mb-1 flex justify-between text-xs">
           <p>ПЛОЩАДЬ:</p>
           <p className="uppercase">{pantryPlace.area} м2</p>
@@ -94,12 +91,11 @@ export const PantryPlaceMobileComponent = ({pantryPlace, zoom = 1, onSelect, cla
         </div>
         <Button className="w-full py-2 text-xs" onClick={() => {
           onSelect(pantryPlace.id)
-          setVisible(false)
+          onClose()
         }}>
           Забронировать
         </Button>
       </Dialog>
-      </div>
     </>
   )
 }

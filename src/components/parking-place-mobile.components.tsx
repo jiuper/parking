@@ -3,12 +3,11 @@ import { IParkingPlace } from '../types/parking-place.type.ts'
 import { ParkingPlaceImagesRecord } from '../constants/parking-place-images-record.component.ts'
 import { ParkingPlaceTypesRecord } from '../constants/parking-place-types-record.constant.ts'
 import { ParkingPlacePositionsRecord } from '../constants/parking-place-positions-record.ts'
-import { ComponentPropsWithoutRef, useRef, useState } from 'react'
+import { ComponentPropsWithoutRef, useRef } from 'react'
 import { Dialog } from 'primereact/dialog'
 import { Image, NumberFormatter } from '@mantine/core'
 import Button from '../shared-ui/button.component.tsx'
 import { useClickOutside } from 'primereact/hooks'
-
 
 
 interface ParkingPlaceMobileComponentsProps
@@ -16,21 +15,23 @@ interface ParkingPlaceMobileComponentsProps
   parkingPlace: IParkingPlace
   zoom?: number
   onSelect: (parkingPlaceId: number) => void
+  onClose: () => void
+  onOpen: (id: number) => void
+  isOpen: boolean
 }
 
-export const ParkingPlaceMobileComponents = ({parkingPlace, zoom = 1, onSelect, className, style, ...otherProps}: ParkingPlaceMobileComponentsProps) => {
+export const ParkingPlaceMobileComponents = ({onOpen, onClose, isOpen, parkingPlace, zoom = 1, onSelect, className, style, ...otherProps}: ParkingPlaceMobileComponentsProps) => {
   const image = ParkingPlaceImagesRecord[parkingPlace.status]
   const type = ParkingPlaceTypesRecord[parkingPlace.type]
   const position = ParkingPlacePositionsRecord[parkingPlace.displayedNo]
-  const [visible, setVisible] = useState(false);
-  const overlayRef = useRef(null);
 
-  useClickOutside(overlayRef, () => {
-     setVisible(false);
-  });
+  const overlayRef = useRef(null);
+  useClickOutside(overlayRef,() => onClose());
+
   return (
       <>
         <div
+          ref={overlayRef}
           className={clsx(className)}
           style={{
             width: `${zoom * 1.75}rem`,
@@ -39,7 +40,7 @@ export const ParkingPlaceMobileComponents = ({parkingPlace, zoom = 1, onSelect, 
             rotate: `${position.rotationDegree}deg`,
             ...style,
           }}
-          onClick={() => setVisible(true)}
+          onClick={() => onOpen(parkingPlace.id)}
           {...otherProps}
         >
           {image ? (
@@ -62,19 +63,15 @@ export const ParkingPlaceMobileComponents = ({parkingPlace, zoom = 1, onSelect, 
             </div>
           )}
         </div>
-        <div ref={overlayRef}>
           <Dialog
             baseZIndex={9999}
             header={<h3 className="mb-2 text-xl">Место №{parkingPlace.displayedNo}</h3>}
-            visible={visible}
+            visible={isOpen}
             position={'bottom'}
-            modal={false}
             draggable={false}
+            modal={false}
             style={{ maxWidth:"550px", width: '100vw' }}
-            onHide={() => {
-              if (!visible) return;
-              setVisible(false);
-            }}>
+            onHide={onClose}>
             <div className="mb-1 flex justify-between text-xs">
               <p>ТИП МЕСТА:</p>
               <p className="uppercase">{type}</p>
@@ -103,12 +100,11 @@ export const ParkingPlaceMobileComponents = ({parkingPlace, zoom = 1, onSelect, 
             </div>
             <Button className="w-full py-2 text-xs" onClick={() => {
               onSelect(parkingPlace.id)
-              setVisible(false)
+              onClose()
             }}>
               Забронировать
             </Button>
           </Dialog>
-        </div>
       </>
   )
 }
