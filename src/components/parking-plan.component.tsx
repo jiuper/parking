@@ -269,7 +269,7 @@ export default function ParkingPlan({count}:ParkingPlan) {
         <Section id="parking-plan" className="py-14 px-5">
           <div className="mb-[1.05rem] flex justify-center gap-x-5">
             {FloorRecordEntries.map(([floor]) => (
-              <div key={floor} className="flex  flex-col items-center gap-y-[0.7rem]">
+              <div key={floor} className="flex flex-col items-center gap-y-[0.7rem]">
                 <Button
                   className={clsx(
                     'h-12 w-12 rounded-full flex justify-center items-center text-2xl',
@@ -287,21 +287,22 @@ export default function ParkingPlan({count}:ParkingPlan) {
           <TransformWrapper>
             {({ zoomIn, zoomOut }) => (
               <>
-                <div className="overflow-auto relative mt-6">
+                <div>
                   <TransformComponent>
                     {selectedFloor === 4 ? (
-                      <Image
+                      <img
                         src="/images/plans/fourth-floor-plan-placeholder.webp"
                         alt=""
-                        className="max-w-none"
                       />
                     ) : (
                       <>
-                        <Image
-                          src={parkingPlanImage}
-                          alt=""
-                          className="max-w-none"
-                        />
+                        <div style={{width: '100%', height: '100%'}}>
+                          <img
+                            src={parkingPlanImage}
+                            alt=""
+                          />
+                        </div>
+
                         {selectedFloor !== 3 &&
                           selectedFloor !== 4 &&
                           floorParkingPlaces.map((parkingPlace) => (

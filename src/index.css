@@ -18,4 +18,5 @@ html {
 body {
   color: black;
   background-color: white;
+  touch-action: pan-x pan-y;
 }

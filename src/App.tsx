@@ -11,6 +11,7 @@ import PlaceParametersPage from './pages/place-parameters.page'
 import PurchaseRequestsPage from './pages/purchase-requests.page'
 import { useAuthStore } from './stores/use-auth-store.hook'
 
+
 function initializeApp() {
   if (window === undefined) {
     return
