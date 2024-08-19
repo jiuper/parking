@@ -142,6 +142,7 @@ export default function ParkingPlan({count}:ParkingPlan) {
   const handlePlaceSelect = (id: number, type: 'parking' | 'pantry') => {
     setSelectedPlaceInfo({ id, type })
     setOpenedModalType(type === 'parking' ? ModalTypes.ParkingForm : ModalTypes.PantryForm)
+    console.log(1)
   }
 
 
@@ -286,9 +287,9 @@ export default function ParkingPlan({count}:ParkingPlan) {
           </div>
           <TransformWrapper>
             {({ zoomIn, zoomOut }) => (
-              <>
-                <div>
-                  <TransformComponent>
+
+                <>
+                  <TransformComponent  wrapperStyle={{ width: '100%', height: '100%' }}>
                     {selectedFloor === 4 ? (
                       <img
                         src="/images/plans/fourth-floor-plan-placeholder.webp"
@@ -296,13 +297,10 @@ export default function ParkingPlan({count}:ParkingPlan) {
                       />
                     ) : (
                       <>
-                        <div style={{width: '100%', height: '100%'}}>
                           <img
                             src={parkingPlanImage}
                             alt=""
                           />
-                        </div>
-
                         {selectedFloor !== 3 &&
                           selectedFloor !== 4 &&
                           floorParkingPlaces.map((parkingPlace) => (
@@ -332,7 +330,6 @@ export default function ParkingPlan({count}:ParkingPlan) {
                       </>
                     )}
                   </TransformComponent>
-                </div>
 
                 <div className="my-6 flex justify-center items-center gap-x-6">
                   <Button className="w-8 text-xl" onClick={() => zoomOut()}>

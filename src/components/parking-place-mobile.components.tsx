@@ -44,6 +44,7 @@ export const ParkingPlaceMobileComponents = ({onOpen, onClose, isOpen, parkingPl
             height:  `${((zoom * 6.35) * 16) / 424 * 100}%`,
             rotate: `${position.rotationDegree}deg`,
             ...style,
+
           }}
           {...otherProps}
         >
