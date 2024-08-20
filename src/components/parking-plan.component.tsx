@@ -142,7 +142,6 @@ export default function ParkingPlan({count}:ParkingPlan) {
   const handlePlaceSelect = (id: number, type: 'parking' | 'pantry') => {
     setSelectedPlaceInfo({ id, type })
     setOpenedModalType(type === 'parking' ? ModalTypes.ParkingForm : ModalTypes.PantryForm)
-    console.log(1)
   }
 
 

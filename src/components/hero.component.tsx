@@ -1,18 +1,17 @@
 import { useSwiper } from 'swiper/react'
 import Button from '../shared-ui/button.component'
-import { useFloorStore } from '../stores/use-floor-store.hook'
 import Section from './section.component'
+import { useNavigate } from 'react-router-dom'
 
 export default function Hero() {
   const swiper = useSwiper()
-  const setFloor = useFloorStore((store) => store.setFloor)
-
+  const router = useNavigate()
   const handleButtonClick = (type: 'parking' | 'pantry') => {
     if (type === 'parking') {
-      setFloor(1)
+      router(`/${1}`)
     }
     if (type === 'pantry') {
-      setFloor(3)
+      router(`/${3}`)
     }
     if (window.innerWidth >= 1024) {
       swiper.slideNext()
