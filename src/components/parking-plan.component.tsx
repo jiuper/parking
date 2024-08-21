@@ -291,7 +291,7 @@ export default function ParkingPlan({count}:ParkingPlan) {
                   <TransformComponent  wrapperStyle={{ width: '100%', height: '100%' }}>
                     {selectedFloor === 4 ? (
                       <img
-                        src="/images/plans/fourth-floor-plan-placeholder.webp"
+                        src="/images/plans/fourth-floor-plan-placeholder.jpg"
                         alt=""
                       />
                     ) : (

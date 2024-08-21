@@ -2,10 +2,11 @@ import { useSwiper } from 'swiper/react'
 
 import Button from '../shared-ui/button.component'
 import Section from './section.component'
+import { useNavigate } from 'react-router-dom'
 
 export default function AboutPlace() {
   const swiper = useSwiper()
-
+  const router = useNavigate()
   const handleButtonClick = () => {
     if (window.innerWidth >= 1024) {
       swiper.slideTo(1)
@@ -14,6 +15,7 @@ export default function AboutPlace() {
     const parkingPlanElement = document.querySelector('#parking-plan')
     if (parkingPlanElement) {
       parkingPlanElement.scrollIntoView({ behavior: 'smooth' })
+      router(`/${5}`)
     }
   }
 
