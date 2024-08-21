@@ -8,7 +8,7 @@ export default function Hero() {
   const router = useNavigate()
   const handleButtonClick = (type: 'parking' | 'pantry') => {
     if (type === 'parking') {
-      router(`/${1}`)
+      router(`/${5}`)
     }
     if (type === 'pantry') {
       router(`/${3}`)

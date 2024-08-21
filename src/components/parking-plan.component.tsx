@@ -152,7 +152,7 @@ export default function ParkingPlan({count}:ParkingPlan) {
           <div className="flex justify-center items-end gap-x-[7.25rem]">
             {selectedFloor === 4 ? (
               <Image
-                src="/images/plans/fourth-floor-plan-placeholder.webp"
+                src="/images/plans/fourth-floor-plan-placeholder.jpg"
                 alt=""
                 className="w-[53.3rem]"
               />
