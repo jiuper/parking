@@ -75,12 +75,14 @@ export default function ContactForm(props: IContactFormProps) {
         name="name"
         label="Ваше имя"
         className="mb-4"
+        placeholder={"Андрей Андреевич Андреев"}
       />
       <ControlledTextInput
         control={control}
         name="phoneNumber"
         label="Ваш телефон"
         className="mb-4"
+        placeholder={"+999 999 99 99"}
       />
       <ControlledCheckbox
         control={control}

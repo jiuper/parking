@@ -10,6 +10,7 @@ export default function AboutPlace() {
   const handleButtonClick = () => {
     if (window.innerWidth >= 1024) {
       swiper.slideTo(1)
+      router(`/${5}`)
       return
     }
     const parkingPlanElement = document.querySelector('#parking-plan')
@@ -17,6 +18,7 @@ export default function AboutPlace() {
       parkingPlanElement.scrollIntoView({ behavior: 'smooth' })
       router(`/${5}`)
     }
+
   }
 
   return (

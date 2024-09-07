@@ -23,7 +23,10 @@ import { useNavigate } from 'react-router-dom'
 import { ParkingPlaceMobileComponents } from './parking-place-mobile.components.tsx'
 import { PantryPlaceMobileComponent } from './pantry-place-mobile.component.tsx'
 import { TransformComponent, TransformWrapper } from 'react-zoom-pan-pinch'
+import styles from "./index.module.scss"
+import cnBind from 'classnames/bind'
 
+const cx = cnBind.bind(styles)
 
 enum ModalTypes {
   ParkingForm,
@@ -34,12 +37,13 @@ enum ModalTypes {
 type ParkingPlan = {
   count: number
 }
+const listFloor = ["Парковочные места", "Парковочные места","Кладовые помещения", "Кладовые помещения","Парковочные места"]
 export default function ParkingPlan({count}:ParkingPlan) {
   const isDesktop = useMediaQuery('(min-width: 1024px)')
 
   const setFloor = useFloorStore((store) => store.setFloor)
   const router = useNavigate()
-
+  const [openDropDown, setOpenDropDown] = useState(false)
   const {
     data: parkingPlaces,
     isLoading: isParkingPlacesLoading,
@@ -267,28 +271,49 @@ export default function ParkingPlan({count}:ParkingPlan) {
 
       {!isDesktop ? (
         <Section id="parking-plan" className="py-14 px-5">
-          <div className="mb-[1.05rem] flex justify-center gap-x-5">
-            {FloorRecordEntries.map(([floor]) => (
-              <div key={floor} className="flex flex-col items-center gap-y-[0.7rem]">
-                <Button
-                  className={clsx(
-                    'h-12 w-12 rounded-full flex justify-center items-center text-2xl',
-                    Number(floor) === selectedFloor &&
-                    'bg-steel border-steel hover:text-steel hover:border-steel'
-                  )}
-                  onClick={() => handelHref(Number(floor))}
+          <div className="pt-5 px-5 bg-grey-1 rounded-3xl">
+            <div className={clsx(openDropDown ? "bg-white border-b-none rounded-t-3xl p-[25px]" : "rounded-full",'relative flex flex-col border border-grey-2 py-2 w-full mb-[25px]')}>
+              <div className={clsx("items-center justify-center flex", openDropDown  && "pb-[8px] border-b-grey-3 border-b-[1px]" )} onClick={() => setOpenDropDown(!openDropDown)}>Этаж {selectedFloor + 1}-{listFloor[Number(selectedFloor) - 1]}</div>
+              <div className={clsx(openDropDown ? "border-t-0 rounded-b-3xl px-[25px] gap-[12px] z-10" : "px-2","py-2 absolute bg-white left-[-1px] border border-grey-2 w-full  top-[100%] items-start justify-center flex-col", openDropDown ? "flex" : "hidden")}>
+              {FloorRecordEntries.map(([floor]) => (
+                    <div key={floor} onClick={() => {
+                      handelHref(Number(floor))
+                      setOpenDropDown(!openDropDown)
+                    }} className={""}>
+                      Этаж {Number(floor) + 1}-{listFloor[Number(floor) - 1]}
+                  </div>
+              ))}
+            </div>
+            </div>
+            <div className={clsx(cx("record"))}>
+              {StatusMarkings.map((placeStatusMarking) => (
+                <div
+                  key={placeStatusMarking.title}
+                  className="mb-4 flex items-center gap-x-5"
                 >
-                  {Number(floor) + 1}
-                </Button>
-                <p className="uppercase">ЭТАЖ</p>
-              </div>
-            ))}
-          </div>
-          <TransformWrapper>
-            {({ zoomIn, zoomOut }) => (
+                  <div
+                    className="h-[1.80rem] w-[1.80rem] rounded-full flex items-center justify-center"
+                    style={{ backgroundColor: placeStatusMarking.color }}
+                  >
+                    {placeStatusMarking.iconText ? (
+                      <p className="text-xs text-white">{placeStatusMarking.iconText}</p>
+                    ) : (
+                      <img
+                        src={placeStatusMarking.icon}
+                        alt={placeStatusMarking.title}
+                        className="w-[1.075rem]"
+                      />
+                    )}
+                  </div>
+                  <p className={clsx("text-[0.75rem] ")}>{placeStatusMarking.title}</p>
+                </div>
+              ))}
+            </div>
+            <TransformWrapper>
+              {({ zoomIn, zoomOut }) => (
 
                 <>
-                  <TransformComponent  wrapperStyle={{ width: '100%', height: '100%' }}>
+                  <TransformComponent wrapperStyle={{ width: '100%', height: '100%' }}>
                     {selectedFloor === 4 ? (
                       <img
                         src="/images/plans/fourth-floor-plan-placeholder.jpg"
@@ -296,10 +321,10 @@ export default function ParkingPlan({count}:ParkingPlan) {
                       />
                     ) : (
                       <>
-                          <img
-                            src={parkingPlanImage}
-                            alt=""
-                          />
+                        <img
+                          src={parkingPlanImage}
+                          alt=""
+                        />
                         {selectedFloor !== 3 &&
                           selectedFloor !== 4 &&
                           floorParkingPlaces.map((parkingPlace) => (
@@ -329,61 +354,37 @@ export default function ParkingPlan({count}:ParkingPlan) {
                       </>
                     )}
                   </TransformComponent>
+                  <div className={"flex justify-end w-full"}>
+                    <div className="bg-grey-2 rounded-full my-6 flex justify-center items-center w-[115px] h-[49px]">
+                      <div
+                        className="border-r-[1px] border-white border-solid flex-auto text-white flex justify-center items-center bc-none w-8 text-xl px-[16px] py-[23px]"
+                        onClick={() => zoomOut()}>
+                        <svg width="15" height="3" viewBox="0 0 15 3" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M0 1.5H15" stroke="white" strokeWidth="2" />
+                        </svg>
+                      </div>
+                      <div
+                        className="flex-auto text-white flex justify-center items-center bg-none w-8 text-xl px-[16px] py-[23px]"
+                        onClick={() => zoomIn()}>
+                        <svg width="15" height="16" viewBox="0 0 15 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M0 8.5H15" stroke="white" strokeWidth="2" />
+                          <path d="M7.5 15.36L7.5 0.659986" stroke="white" strokeWidth="2" />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
 
-                <div className="my-6 flex justify-center items-center gap-x-6">
-                  <Button className="w-8 text-xl" onClick={() => zoomOut()}>
-                    -
-                  </Button>
-                  <Button className="w-8 text-xl" onClick={() => zoomIn()}>
-                    +
-                  </Button>
-                </div>
-              </>
-            )}
-          </TransformWrapper>
-
-          <div>
-            <p className="text-3xl">{selectedFloorInfo.title}</p>
-            <div className="h-[2px] my-5 bg-black" />
-            <p className="mb-6 text-3xl">Условные обозначения</p>
-            {StatusMarkings.map((placeStatusMarking) => (
-              <div
-                key={placeStatusMarking.title}
-                className="mb-4 flex items-center gap-x-5"
-              >
-                <div
-                  className="h-[1.80rem] w-[1.80rem] rounded-full flex items-center justify-center"
-                  style={{ backgroundColor: placeStatusMarking.color }}
-                >
-                  {placeStatusMarking.iconText ? (
-                    <p className="text-xs text-white">{placeStatusMarking.iconText}</p>
-                  ) : (
-                    <img
-                      src={placeStatusMarking.icon}
-                      alt={placeStatusMarking.title}
-                      className="w-[1.075rem]"
-                    />
-                  )}
-                </div>
-                <p>{placeStatusMarking.title}</p>
-              </div>
-            ))}
-            <div className="h-[2px] mt-10 mb-4 bg-black" />
-            <Link
-              href="tel:+79117751111"
-              target="_blank"
-              rel="noreferrer"
-              className="text-3xl"
-            >
-              +7 (911) 775-11-11
-            </Link>
+                </>
+              )}
+            </TransformWrapper>
           </div>
+
         </Section>
       ) : null}
 
       <Modal
         opened={openedModalType === ModalTypes.ParkingForm}
-        title="Заявка на бронирование машино-места"
+        title="Заявка на бронирование паркинга"
         centered
         zIndex={1000}
         size="xl"
@@ -391,7 +392,7 @@ export default function ParkingPlan({count}:ParkingPlan) {
           content: 'rounded-[2rem]',
           header: 'lg:py-[2.05rem] lg:pl-[3.4rem] lg:pr-[2.9rem]',
           title: 'text-2xl lg:text-[2rem]',
-          body: 'lg:pb-[2.75rem] lg:pl-[3.4rem] lg:pr-[4.1rem]',
+          body: 'lg:pb-[2.75rem] lg:pl-[3.4rem] lg:pr-[4.1rem]'
         }}
         closeButtonProps={{ size: 'xl' }}
         onClose={() => setOpenedModalType(null)}
@@ -445,7 +446,7 @@ export default function ParkingPlan({count}:ParkingPlan) {
           content: 'rounded-[2rem]',
           header: 'lg:py-[2.05rem] lg:pl-[3.4rem] lg:pr-[2.9rem]',
           title: 'text-2xl lg:text-[2rem]',
-          body: 'lg:pb-[2.75rem] lg:pl-[3.4rem] lg:pr-[4.1rem]',
+          body: 'lg:pb-[2.75rem] lg:pl-[3.4rem] lg:pr-[4.1rem]'
         }}
         closeButtonProps={{ size: 'xl' }}
         onClose={() => setOpenedModalType(null)}
@@ -493,7 +494,7 @@ export default function ParkingPlan({count}:ParkingPlan) {
         size="xl"
         classNames={{
           content: 'rounded-[2rem]',
-          body: 'pt-[3.65rem] pb-[2.75rem] px-[3.1rem]',
+          body: 'pt-[3.65rem] pb-[2.75rem] px-[3.1rem]'
         }}
         closeButtonProps={{ size: 'xl' }}
         onClose={() => setOpenedModalType(null)}
@@ -522,7 +523,7 @@ export default function ParkingPlan({count}:ParkingPlan) {
         size="xl"
         classNames={{
           content: 'rounded-[2rem]',
-          body: 'pt-[3.65rem] pb-[2.75rem] px-[3.1rem]',
+          body: 'pt-[3.65rem] pb-[2.75rem] px-[3.1rem]'
         }}
         closeButtonProps={{ size: 'xl' }}
         onClose={() => setOpenedModalType(null)}

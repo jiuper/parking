@@ -17,6 +17,11 @@ export default {
       secondary: '#D9D9D9',
       'secondary-accent': '#E4E4E4',
       additional: '#1D1D1D',
+      'additional-accent': '#191919',
+      'additional-accent-70': '#252525',
+      "grey-1": "#f1f1f1",
+      "grey-2": "#ccc",
+      "grey-3": "#A7A7A7",
     },
     extend: {
       backgroundImage: {

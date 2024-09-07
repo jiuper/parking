@@ -93,12 +93,13 @@ export default function PlaceBookingForm(props: IPlaceBookingFormProps) {
         name="name"
         label="Ваше имя"
         className="mb-4"
+        placeholder={"Андрей Андреевич Андреев"}
       />
       <ControlledTextInput
         control={control}
         name="phoneNumber"
         label="Ваш телефон"
-        prefix="+7"
+        placeholder="+7 999 999 99 99"
         className="mb-4"
       />
       <ControlledTextInput
@@ -106,6 +107,7 @@ export default function PlaceBookingForm(props: IPlaceBookingFormProps) {
         name="email"
         label="Ваш e-mail"
         className="mb-4"
+        placeholder={"example@email.ru"}
       />
       <ControlledCheckbox
         control={control}
