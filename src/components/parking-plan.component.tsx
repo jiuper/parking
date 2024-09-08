@@ -274,7 +274,7 @@ export default function ParkingPlan({count}:ParkingPlan) {
           <div className="pt-5 px-5 bg-grey-1 rounded-3xl">
             <div className={clsx(openDropDown ? "bg-white border-b-none rounded-t-3xl p-[25px]" : "rounded-full",'relative flex flex-col border border-grey-2 py-2 w-full mb-[25px]')}>
               <div className={clsx("items-center justify-center flex", openDropDown  && "pb-[8px] border-b-grey-3 border-b-[1px]" )} onClick={() => setOpenDropDown(!openDropDown)}>Этаж {selectedFloor + 1}-{listFloor[Number(selectedFloor) - 1]}</div>
-              <div className={clsx(openDropDown ? "border-t-0 rounded-b-3xl px-[25px] gap-[12px] z-10" : "px-2","py-2 absolute bg-white left-[-1px] border border-grey-2 w-full  top-[100%] items-start justify-center flex-col", openDropDown ? "flex" : "hidden")}>
+              <div className={clsx(openDropDown ? "border-t-0 rounded-b-3xl px-[25px] gap-[12px] z-10" : "px-2","py-2 absolute bg-white left-[-1px] border border-grey-2 w-[100.5%]  top-[100%] items-start justify-center flex-col", openDropDown ? "flex" : "hidden")}>
               {FloorRecordEntries.map(([floor]) => (
                     <div key={floor} onClick={() => {
                       handelHref(Number(floor))

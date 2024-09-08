@@ -23,13 +23,28 @@
   clip-path: polygon(0 0, 60% 0, 45% 100%, 0% 100%);
 
 }
+.caption{
+    font-family: 'Gotame_Bold', sans-serif;
+}
+.title{
+  font-family: 'Gotame_Bold', sans-serif;
+  line-height: 202% !important;
+}
+.buttons > button{
+  font-family: "Coda", system-ui;
+
+}
 .dividing-line{
-  max-width: 604px;
+  max-width: 640px;
   width: 100%;
-  height: 1px;
+  height: 6px;
   background: #fff;
 }
 @media screen and (max-width: 1024px) {
+  .dividing-line{
+    max-width: 305px;
+    height: 4px;
+  }
   .wrapper{
     display: flex;
     flex-direction: column-reverse;
@@ -43,24 +58,64 @@
     clip-path: inherit;
     padding: 0 2rem 40px 2rem;
     gap: 30px;
+    height: auto;
     align-items: center;
   }
   .image-wrapper{
     background: #252525;
     height: 100%;
   }
-}
 
+  .title{
+    font-size: 1.3rem !important;
+    line-height: 209% !important;
+  }
+  .caption{
+    font-size: 2.2rem !important;
+    line-height: 119% !important;
+  }
+  .buttons > button{
+    font-size: 11px !important;
+    width: auto;
+  }
+}
+@media screen and (max-width: 400px) {
+  .title{
+    font-size: 1rem !important;
+    line-height: 190% !important;
+  }
+  .caption{
+    font-size: 1.9rem !important;
+    line-height: 100% !important;
+  }
+}
 .record{
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
 }
 
-.input > div> div> {
-  input[checked]{
-    background: #fff;
+.input > div > {
+  div{
+    label{
+      font-family: "Coda", system-ui;
+      font-weight: 400;
+      font-size: 10px;
+      color: #929292;
+      margin-bottom: 30px;
+      line-height: 120%;
+    }
   }
-  svg{
-    color: #000000;
+  div{
+    input{
+      border-radius: 0
+    }
+    input:checked{
+      background-color: #fff !important;
+    ;
+    }
+    svg{
+      color: #000000;
+    }
   }
+
 }
