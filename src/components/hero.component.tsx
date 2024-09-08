@@ -4,6 +4,7 @@ import Section from './section.component'
 import { useNavigate } from 'react-router-dom'
 import cnBind from "classnames/bind"
 import styles from "./index.module.scss"
+import hero from "../../public/images/hero.jpeg"
 const cx = cnBind.bind(styles)
 export default function Hero() {
   const swiper = useSwiper()
@@ -29,7 +30,7 @@ export default function Hero() {
     <Section className="w-full h-full">
       <div className={cx("wrapper")}>
         <div className={cx("image-wrapper")}>
-          <img className={cx('image')} src="/public/images/hero.jpeg" alt="hero" />
+          <img className={cx('image')} src={hero} alt="hero" />
         </div>
 
         <div className={cx('parking-main')}>
