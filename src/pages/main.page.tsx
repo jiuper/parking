@@ -12,6 +12,7 @@ import ParkingPlan from '../components/parking-plan.component'
 import PhotoGallery from '../components/photo-gallery.component'
 import ScrollControls from '../components/scroll-controls.component'
 import { useParams } from 'react-router-dom'
+import AboutUsMobileComponent from '../components/about-us-mobile.component.tsx'
 
 export default function MainPage() {
   const isDesktop = useMediaQuery('(min-width: 1024px)')
@@ -58,7 +59,7 @@ export default function MainPage() {
         <Header />
         <Hero />
         <ParkingPlan count={Number(id === undefined ? 1 : id)} />
-        <AboutUs />
+        <AboutUsMobileComponent />
         <AboutPlace />
         <GeoPosition />
         <PhotoGallery />

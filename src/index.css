@@ -12,6 +12,13 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'Gotame_Regular';
+    src: url('../public/fonts/gothampro.ttf') format('truetype'); ;
+    font-weight: 400;
+    font-style: normal;
+}
+
 html {
   font-size: 16px;
 }

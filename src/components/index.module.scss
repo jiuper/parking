@@ -21,7 +21,6 @@
   flex-direction: column;
   justify-content: center;
   clip-path: polygon(0 0, 60% 0, 45% 100%, 0% 100%);
-
 }
 .caption{
     font-family: 'Gotame_Bold', sans-serif;
@@ -99,10 +98,14 @@
     label{
       font-family: "Coda", system-ui;
       font-weight: 400;
-      font-size: 10px;
       color: #929292;
       margin-bottom: 30px;
       line-height: 120%;
+    }
+    @media screen and (max-width: 1024px) {
+      label{
+        font-size: 10px;
+      }
     }
   }
   div{
@@ -118,4 +121,25 @@
     }
   }
 
+}
+
+//about
+
+.image-about{
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 35% 100%);
+}
+.about-main{
+  clip-path: polygon(0 0, 42% 0, 64% 100%, 0 100%);
+}
+.title-about{
+  font-family: 'Gotame_Regular', sans-serif;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 125%;
+}
+.caption-about{
+  font-family: 'Gotame_Bold', sans-serif;
+  font-weight: 700;
+  font-size: 40px;
+  color: #fff;
 }
