@@ -2,7 +2,7 @@ import Link from '../shared-ui/link.component'
 
 export default function Header() {
   return (
-    <header className="lg:absolute top-0 inset-x-0 z-50 bg-additional-accent h-24 px-[1.35rem] flex justify-between items-center">
+    <header className="lg:absolute top-0 inset-x-0 z-50 bg-additional-accent h-16 lg:h-24 px-[1.35rem] flex justify-between items-center">
       <img src="/images/logo.png" alt="" className="w-10 lg:w-14" />
       <div className="justify-self-end">
         <Link

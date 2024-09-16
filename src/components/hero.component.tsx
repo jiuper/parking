@@ -48,13 +48,13 @@ export default function Hero() {
           <div
             className={clsx(cx("buttons",'left-1/2 flex lg:lex-col lg:justify-start justify-center lg:flex-row gap-5 lg:w-full'))}>
             <Button
-              className="py-2 font-extrabold lg:flex-none flex-initial basis-full text-[0.65rem] sm:text-[0.75rem] lg:text-[0.9rem] uppercase shadow-md w-[14rem]"
+              className="py-2 lg:flex-none flex-initial basis-full text-[0.65rem] sm:text-[0.75rem] lg:text-[0.9rem] uppercase shadow-md w-[14rem]"
               onClick={() => handleButtonClick('parking')}
             >
               Купить машино-место
             </Button>
             <Button
-              className="py-2 font-extrabold lg:flex-none flex-initial basis-full text-[0.65rem] sm:text-[0.75rem] lg:text-[0.9rem] uppercase shadow-md max-w-[14rem] w-full"
+              className="py-2 lg:flex-none flex-initial basis-full text-[0.65rem] sm:text-[0.75rem] lg:text-[0.9rem] uppercase shadow-md max-w-[14rem] w-full"
               onClick={() => handleButtonClick('pantry')}
             >
               Купить кладовое помещение
