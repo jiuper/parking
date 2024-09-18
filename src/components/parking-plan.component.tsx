@@ -214,7 +214,7 @@ export default function ParkingPlan({count}:ParkingPlan) {
                     style={{ backgroundColor: placeStatusMarking.color }}
                   >
                     {placeStatusMarking.iconText ? (
-                      <p className="text-xs text-white">{placeStatusMarking.iconText}</p>
+                      <p className="text-xs text-white ">{placeStatusMarking.iconText}</p>
                     ) : (
                       <img
                         src={placeStatusMarking.icon}
@@ -292,7 +292,7 @@ export default function ParkingPlan({count}:ParkingPlan) {
                   className="mb-4 flex items-center gap-x-5"
                 >
                   <div
-                    className="h-[1.80rem] w-[1.80rem] rounded-full flex items-center justify-center"
+                    className="h-[1.80rem] w-[1.80rem] flex-[1_0_auto] rounded-full flex items-center justify-center"
                     style={{ backgroundColor: placeStatusMarking.color }}
                   >
                     {placeStatusMarking.iconText ? (
@@ -305,7 +305,7 @@ export default function ParkingPlan({count}:ParkingPlan) {
                       />
                     )}
                   </div>
-                  <p className={clsx("text-[0.75rem] ")}>{placeStatusMarking.title}</p>
+                  <p className={clsx("text-[0.75rem] flex-[1_0_80%]")}>{placeStatusMarking.title}</p>
                 </div>
               ))}
             </div>
