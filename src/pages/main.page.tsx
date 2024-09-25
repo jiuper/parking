@@ -13,10 +13,21 @@ import PhotoGallery from '../components/photo-gallery.component'
 import ScrollControls from '../components/scroll-controls.component'
 import { useParams } from 'react-router-dom'
 import AboutUsMobileComponent from '../components/about-us-mobile.component.tsx'
+import { useEffect } from 'react'
 
 export default function MainPage() {
   const isDesktop = useMediaQuery('(min-width: 1024px)')
   const { id } = useParams()
+
+  useEffect(() => {
+    if(id){
+      const parkingPlanElement = document.querySelector('#parking-plan')
+      if (parkingPlanElement) {
+        parkingPlanElement.scrollIntoView({ behavior: 'smooth' })
+      }
+    }
+
+  }, [id])
 
   return (
     <>
@@ -27,6 +38,7 @@ export default function MainPage() {
           mousewheel={true}
           speed={1000}
           style={{ width: '100vw', height: '100vh' }}
+          initialSlide={Number(id === undefined ? 0 : 1)}
         >
           <SwiperSlide style={{ width: '100vw', height: '100vh' }}>
             <Header />

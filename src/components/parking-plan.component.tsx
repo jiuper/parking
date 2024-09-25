@@ -19,7 +19,7 @@ import PantryPlace from './pantry-place.component'
 import ParkingPlace from './parking-place.component'
 import PlaceBookingForm from './place-booking-form.component'
 import Section from './section.component'
-import { useLocation, useNavigate } from 'react-router-dom'
+import {  useNavigate } from 'react-router-dom'
 import { ParkingPlaceMobileComponents } from './parking-place-mobile.components.tsx'
 import { PantryPlaceMobileComponent } from './pantry-place-mobile.component.tsx'
 import { TransformComponent, TransformWrapper } from 'react-zoom-pan-pinch'
@@ -85,7 +85,7 @@ export default function ParkingPlan({count}:ParkingPlan) {
   } | null>(null)
   const [openedModalType, setOpenedModalType] = useState<ModalTypes | null>(null)
   const [zoom] = useState(0.5)
-  const location = useLocation()
+
   useEffect(() => {
     if (count === null) {
       return
@@ -93,15 +93,6 @@ export default function ParkingPlan({count}:ParkingPlan) {
     setSelectedFloor(count)
     setFloor(null)
   }, [count, setFloor])
-
-  useEffect(() => {
-
-      const parkingPlanElement = document.querySelector('#parking-plan')
-      if (parkingPlanElement) {
-        parkingPlanElement.scrollIntoView({ behavior: 'smooth' })
-      }
-
-  }, [location]);
 
   if (isParkingPlacesLoading || isPantryPlacesLoading) {
     return (
@@ -157,7 +148,6 @@ export default function ParkingPlan({count}:ParkingPlan) {
     setOpenedModalType(type === 'parking' ? ModalTypes.ParkingForm : ModalTypes.PantryForm)
   }
 
-
   return (
     <>
       {isDesktop ? (
@@ -195,7 +185,7 @@ export default function ParkingPlan({count}:ParkingPlan) {
             <div className="w-fit">
               <div className="mb-[1.05rem] flex gap-x-[1.4rem]">
                 {FloorRecordEntries.map(([floor]) => (
-                  <Link style={{textTransform: 'inherit', textDecoration: 'none'}} href={`/${Number(floor)}`} key={floor} className="flex flex-col items-center gap-y-[0.7rem]">
+                  <div  key={floor} className="flex flex-col items-center gap-y-[0.7rem]">
                     <Button
                       className={clsx(
                         'h-[3.55rem] w-[3.55rem] rounded-full flex justify-center items-center text-[2rem]',
@@ -207,7 +197,7 @@ export default function ParkingPlan({count}:ParkingPlan) {
                       {Number(floor) + 1}
                     </Button>
                     <p className="uppercase">ЭТАЖ</p>
-                  </Link>
+                  </div>
                 ))}
               </div>
               <p className="text-3xl mb-6">{selectedFloorInfo.title}</p>

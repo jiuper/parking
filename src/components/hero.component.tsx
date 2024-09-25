@@ -12,10 +12,10 @@ export default function Hero() {
   const router = useNavigate()
   const handleButtonClick = (type: 'parking' | 'pantry') => {
     if (type === 'parking') {
-      router(`/${5}#parking`)
+      router(`/${5}`)
     }
     if (type === 'pantry') {
-      router(`/${3}#parking`)
+      router(`/${3}`)
     }
     if (window.innerWidth >= 1024) {
       swiper.slideNext()
