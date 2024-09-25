@@ -19,7 +19,7 @@ import PantryPlace from './pantry-place.component'
 import ParkingPlace from './parking-place.component'
 import PlaceBookingForm from './place-booking-form.component'
 import Section from './section.component'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { ParkingPlaceMobileComponents } from './parking-place-mobile.components.tsx'
 import { PantryPlaceMobileComponent } from './pantry-place-mobile.component.tsx'
 import { TransformComponent, TransformWrapper } from 'react-zoom-pan-pinch'
@@ -85,7 +85,7 @@ export default function ParkingPlan({count}:ParkingPlan) {
   } | null>(null)
   const [openedModalType, setOpenedModalType] = useState<ModalTypes | null>(null)
   const [zoom] = useState(0.5)
-
+  const location = useLocation()
   useEffect(() => {
     if (count === null) {
       return
@@ -94,6 +94,15 @@ export default function ParkingPlan({count}:ParkingPlan) {
     setFloor(null)
   }, [count, setFloor])
 
+  useEffect(() => {
+    if (location.hash) {
+      const element = document.getElementById(location.hash.substring(1));
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  }, [location]);
+  console.log(location.hash.substring(1))
   if (isParkingPlacesLoading || isPantryPlacesLoading) {
     return (
       <Section id="parking-plan" className="flex flex-col justify-center items-center">
@@ -152,7 +161,7 @@ export default function ParkingPlan({count}:ParkingPlan) {
   return (
     <>
       {isDesktop ? (
-        <Section id={"parking"} className="px-[8.05rem] flex justify-center items-center">
+        <Section id="parking" className="px-[8.05rem] flex justify-center items-center">
           <div className="flex justify-center items-end gap-x-[7.25rem]">
             {selectedFloor === 4 ? (
               <Image
@@ -186,7 +195,7 @@ export default function ParkingPlan({count}:ParkingPlan) {
             <div className="w-fit">
               <div className="mb-[1.05rem] flex gap-x-[1.4rem]">
                 {FloorRecordEntries.map(([floor]) => (
-                  <div key={floor} className="flex flex-col items-center gap-y-[0.7rem]">
+                  <Link style={{textTransform: 'inherit', textDecoration: 'none'}} href={`/${Number(floor)}#parking`} key={floor} className="flex flex-col items-center gap-y-[0.7rem]">
                     <Button
                       className={clsx(
                         'h-[3.55rem] w-[3.55rem] rounded-full flex justify-center items-center text-[2rem]',
@@ -198,7 +207,7 @@ export default function ParkingPlan({count}:ParkingPlan) {
                       {Number(floor) + 1}
                     </Button>
                     <p className="uppercase">ЭТАЖ</p>
-                  </div>
+                  </Link>
                 ))}
               </div>
               <p className="text-3xl mb-6">{selectedFloorInfo.title}</p>
@@ -270,13 +279,13 @@ export default function ParkingPlan({count}:ParkingPlan) {
       ) : null}
 
       {!isDesktop ? (
-        <Section id={"parking"} className="py-14 px-5">
+        <Section id="parking" className="py-14 px-5">
           <div className="pt-5 px-5 bg-grey-1 rounded-3xl">
             <div className={clsx(openDropDown ? "bg-white border-b-none rounded-t-3xl p-[25px]" : "rounded-full",'relative flex flex-col border border-grey-2 py-2 w-full mb-[25px]')}>
               <div className={clsx(cx("select-value","items-center justify-center flex", openDropDown  && "pb-[8px] border-b-grey-3 border-b-[1px]" ))} onClick={() => setOpenDropDown(!openDropDown)}>Этаж {selectedFloor + 1} - {listFloor[Number(selectedFloor) - 1]}</div>
               <div className={clsx(openDropDown ? "border-t-0 rounded-b-3xl px-[25px] gap-[12px] z-10" : "px-2","py-2 absolute bg-white left-[-1px] border border-grey-2 w-[100.5%]  top-[100%] items-start justify-center flex-col", openDropDown ? "flex" : "hidden")}>
               {FloorRecordEntries.map(([floor]) => (
-                    <Link style={{textTransform: 'inherit'}} href={`/${Number(floor)}#parking`} key={floor} onClick={() => {
+                    <Link style={{textTransform: 'inherit'}} href={`${Number(floor)}#parking`} key={floor} onClick={() => {
                       handelHref(Number(floor))
                       setOpenDropDown(!openDropDown)
                     }} className={cx("select-value")}>
