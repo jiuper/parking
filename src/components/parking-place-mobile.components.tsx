@@ -107,6 +107,7 @@ export const ParkingPlaceMobileComponents = ({onOpen, onClose, isOpen, parkingPl
             <Button className="w-full py-2 text-xs" onClick={() => {
               onSelect(parkingPlace.id)
               onClose()
+
             }}>
               Забронировать
             </Button>

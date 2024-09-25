@@ -34,8 +34,6 @@ export const PantryPlaceMobileComponent = ({onOpen, onClose, isOpen, pantryPlace
   const image = PantryPlaceImagesRecord[position.imageType]
   const imageSize = PantryPlaceImageSizeRecord[position.imageType]
 
-
-
   return (
     <>
       <div
@@ -93,6 +91,7 @@ export const PantryPlaceMobileComponent = ({onOpen, onClose, isOpen, pantryPlace
         <Button className="w-full py-2 text-xs" onClick={() => {
           onSelect(pantryPlace.id)
           onClose()
+          console.log(1)
         }}>
           Забронировать
         </Button>
