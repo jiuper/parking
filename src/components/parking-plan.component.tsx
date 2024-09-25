@@ -95,14 +95,14 @@ export default function ParkingPlan({count}:ParkingPlan) {
   }, [count, setFloor])
 
   useEffect(() => {
-    if (location.hash) {
-      const element = document.getElementById(location.hash.substring(1));
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
+
+      const parkingPlanElement = document.querySelector('#parking-plan')
+      if (parkingPlanElement) {
+        parkingPlanElement.scrollIntoView({ behavior: 'smooth' })
       }
-    }
+
   }, [location]);
-  console.log(location.hash.substring(1))
+
   if (isParkingPlacesLoading || isPantryPlacesLoading) {
     return (
       <Section id="parking-plan" className="flex flex-col justify-center items-center">
