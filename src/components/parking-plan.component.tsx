@@ -347,7 +347,7 @@ export default function ParkingPlan({count}:ParkingPlan) {
                             onSelect={() => handlePlaceSelect(pantryPlace.id, 'pantry')}
                             isOpen={pantryPlaceId === pantryPlace.id && isOpenPantry}
                             onOpen={handlePantryClick}
-                            onClose={() => {}}
+                            onClose={() => setIsisOpenPantry(false)}
                           />
                         ))}
                       </>
