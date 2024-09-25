@@ -305,7 +305,7 @@ export default function ParkingPlan({count}:ParkingPlan) {
                       />
                     )}
                   </div>
-                  <p className={clsx("text-[0.75rem] flex-[1_0_80%]")}>{placeStatusMarking.title}</p>
+                  <p className={clsx("text-[0.65rem] flex-[1_0_80%]")}>{placeStatusMarking.title}</p>
                 </div>
               ))}
             </div>
