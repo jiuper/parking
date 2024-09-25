@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, useRef } from 'react'
+import { ComponentPropsWithoutRef, useEffect } from 'react'
 import clsx from 'clsx'
 import { NumberFormatter } from '@mantine/core'
 import { Dialog } from 'primereact/dialog'
@@ -9,7 +9,7 @@ import { PantryPlaceImageSizeRecord } from '../constants/pantry-place-image-size
 import { IPantryPlace } from '../types/pantry-place.type.ts'
 import { PlaceStatusesEnum } from '../enums/place-statuses.enum.ts'
 import { Icon } from './icon/icon.component.tsx'
-import { useClickOutside } from 'primereact/hooks'
+
 
 interface PantryPlaceMobileComponentProps extends Omit<ComponentPropsWithoutRef<'div'>, 'children' | 'onSelect'>  {
   pantryPlace: IPantryPlace
@@ -21,9 +21,16 @@ interface PantryPlaceMobileComponentProps extends Omit<ComponentPropsWithoutRef<
 }
 
 export const PantryPlaceMobileComponent = ({onOpen, onClose, isOpen, pantryPlace, zoom = 1, onSelect, className, style, ...otherProps}: PantryPlaceMobileComponentProps) => {
-  const overlayRef = useRef(null);
 
-  useClickOutside(overlayRef, () => onClose());
+
+  useEffect(() => {
+    window.addEventListener('scroll', () => {
+      // eslint-disable-next-line no-unused-expressions
+      if(window.scrollY){
+        onClose()
+      }
+    });
+  }, [onClose]);
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   if (!(pantryPlace.displayedNo in PantryPlacePositionsRecord)) {
@@ -37,7 +44,6 @@ export const PantryPlaceMobileComponent = ({onOpen, onClose, isOpen, pantryPlace
   return (
     <>
       <div
-        ref={overlayRef}
         className={clsx(className)}
         style={{
           width: `${((zoom * imageSize.width) * 16) / 424 * 100}%`,
