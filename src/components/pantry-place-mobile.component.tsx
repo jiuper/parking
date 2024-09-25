@@ -91,7 +91,7 @@ export const PantryPlaceMobileComponent = ({onOpen, onClose, isOpen, pantryPlace
         </div>
         <Button className="w-full py-2 text-xs" onClick={() => {
           onSelect(pantryPlace.id)
-          onClose()
+          //onClose()
         }}>
           Забронировать
         </Button>

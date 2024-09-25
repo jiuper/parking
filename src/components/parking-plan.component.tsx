@@ -311,7 +311,6 @@ export default function ParkingPlan({count}:ParkingPlan) {
             </div>
             <TransformWrapper>
               {({ zoomIn, zoomOut }) => (
-
                 <>
                   <TransformComponent wrapperStyle={{ width: '100%', height: '100%' }}>
                     {selectedFloor === 4 ? (
@@ -373,7 +372,6 @@ export default function ParkingPlan({count}:ParkingPlan) {
                       </div>
                     </div>
                   </div>
-
                 </>
               )}
             </TransformWrapper>
