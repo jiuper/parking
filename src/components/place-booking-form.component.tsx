@@ -65,7 +65,7 @@ export default function PlaceBookingForm(props: IPlaceBookingFormProps) {
           parkingPlaceId: placeId,
           customerName: data.name,
           customerEmail: data.email,
-          customerPhoneNumber: `+7${data.phoneNumber}`,
+          customerPhoneNumber: data.phoneNumber,
         })
         queryClient.invalidateQueries({ queryKey: ['parking-places'] })
       }
@@ -74,7 +74,7 @@ export default function PlaceBookingForm(props: IPlaceBookingFormProps) {
           pantryPlaceId: placeId,
           customerName: data.name,
           customerEmail: data.email,
-          customerPhoneNumber: `+7${data.phoneNumber}`,
+          customerPhoneNumber: data.phoneNumber,
         })
         queryClient.invalidateQueries({ queryKey: ['pantry-places'] })
       }

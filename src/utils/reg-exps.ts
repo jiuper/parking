@@ -1,1 +1,1 @@
-export const PhoneNumberRegExp = /^[0-9]{10}$/
+export const PhoneNumberRegExp =/^\+?[1-9]{1,4}[0-9]{10}$/

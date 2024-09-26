@@ -20,7 +20,7 @@ export default function MainPage() {
   const { id } = useParams()
 
   useEffect(() => {
-    if(id){
+    if(id ){
       const parkingPlanElement = document.querySelector('#parking-plan')
       if (parkingPlanElement) {
         parkingPlanElement.scrollIntoView({ behavior: 'smooth' })

@@ -1,7 +1,7 @@
 import { useSwiper } from 'swiper/react'
 import Button from '../shared-ui/button.component'
 import Section from './section.component'
-import { useNavigate } from 'react-router-dom'
+import {  useNavigate } from 'react-router-dom'
 import cnBind from "classnames/bind"
 import styles from "./index.module.scss"
 import hero from "../../public/images/hero.jpeg"
@@ -12,19 +12,21 @@ export default function Hero() {
   const router = useNavigate()
   const handleButtonClick = (type: 'parking' | 'pantry') => {
     if (type === 'parking') {
-      router(`/${5}`)
+      router(`/5`)
     }
     if (type === 'pantry') {
-      router(`/${3}`)
+      router(`/3`)
     }
     if (window.innerWidth >= 1024) {
       swiper.slideNext()
       return
     }
-    const parkingPlanElement = document.querySelector('#parking-plan')
-    if (parkingPlanElement) {
-      parkingPlanElement.scrollIntoView({ behavior: 'smooth' })
-    }
+
+    window.scrollTo({
+      top: 1000,
+      behavior: 'smooth'
+    });
+
   }
 
   return (
