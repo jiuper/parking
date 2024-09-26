@@ -23,7 +23,7 @@ export default function Hero() {
     }
 
     window.scrollTo({
-      top: 1000,
+      top: 800,
       behavior: 'smooth'
     });
 
